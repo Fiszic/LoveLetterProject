@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class Deck extends JPanel implements MouseListener{
+	private ArrayList<Card> cards = new ArrayList<>();
 	private ArrayList<Card> deck = new ArrayList<>();
 	private BufferedImage cardback; 
 	private Card spy, gaurd, priest, baron, handmaid, prince, chancellor, king, countess, princess;
@@ -18,16 +19,26 @@ public class Deck extends JPanel implements MouseListener{
 		count = -1;
 		try {
 			cardback = ImageIO.read(Deck.class.getResource("CardBack.png"));
-			spy = new Card("Spy", 0, ImageIO.read(Deck.class.getResource("Spy-0.png")));
-			gaurd = new Card("Gaurd", 1 , ImageIO.read(Deck.class.getResource("Gaurd-1.png")));
-			priest = new Card("Priest", 2 , ImageIO.read(Deck.class.getResource("Priest-2.png")));
-			baron = new Card("Baron", 3 , ImageIO.read(Deck.class.getResource("Baron-3.png")));
-			handmaid = new Card("Handmaid", 4, ImageIO.read(Deck.class.getResource("Handmaid-4.png")));
-			prince = new Card("Prince", 5, ImageIO.read(Deck.class.getResource("Prince-5.png")));
-			chancellor = new Card("Chancellor", 6, ImageIO.read(Deck.class.getResource("Chancellor-6.png")));
-			king = new Card("King", 7, ImageIO.read(Deck.class.getResource("King-7.png")));
-			countess = new Card("Countess", 8, ImageIO.read(Deck.class.getResource("Chancellor-6.png")));
-			princess = new Card("Princess", 9, ImageIO.read(Deck.class.getResource("Princess-9.png")));
+			spy = new Card("Spy", 0, ImageIO.read(Deck.class.getResource("Spy-0.png")), 2);
+			cards.add(spy);
+			gaurd = new Card("Gaurd", 1 , ImageIO.read(Deck.class.getResource("Gaurd-1.png")), 5);
+			cards.add(gaurd);
+			priest = new Card("Priest", 2 , ImageIO.read(Deck.class.getResource("Priest-2.png")), 2);
+			cards.add(priest);
+			baron = new Card("Baron", 3 , ImageIO.read(Deck.class.getResource("Baron-3.png")), 2);
+			cards.add(baron);
+			handmaid = new Card("Handmaid", 4, ImageIO.read(Deck.class.getResource("Handmaid-4.png")), 2);
+			cards.add(handmaid);
+			prince = new Card("Prince", 5, ImageIO.read(Deck.class.getResource("Prince-5.png")), 2);
+			cards.add(prince);
+			chancellor = new Card("Chancellor", 6, ImageIO.read(Deck.class.getResource("Chancellor-6.png")), 2);
+			cards.add(chancellor);
+			king = new Card("King", 7, ImageIO.read(Deck.class.getResource("King-7.png")), 1);
+			cards.add(king);
+			countess = new Card("Countess", 8, ImageIO.read(Deck.class.getResource("Chancellor-6.png")), 1);
+			cards.add(countess);
+			princess = new Card("Princess", 9, ImageIO.read(Deck.class.getResource("Princess-9.png")), 1);
+			cards.add(princess);
 			
 		}
 		catch(Exception E) {
@@ -35,14 +46,14 @@ public class Deck extends JPanel implements MouseListener{
 			E.printStackTrace();
 			return;
 		}
-		shuffle();
-		addMouseListener(this);
-	}
-	public void shuffle() {
-		for(int i = cards.size()-1; i>-1; i--) {
-			int temp =(int)(Math.random()*(cards.size()));
-			deck.add(cards.remove(temp));
+		for(int i = 0; i<cards.size(();i++){
+			int temp = cards.get(i).getNumber();
+			for(int j = 0; j <temp; j++){
+				deck.add(cards.get(i);
+			}
 		}
+		deck.shuffle();
+		addMouseListener(this);
 	}
 	public void paint(Graphics g) {
 		g.drawImage(cardback, 0, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
