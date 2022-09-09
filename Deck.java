@@ -46,19 +46,19 @@ public class Deck extends JPanel implements MouseListener{
 			E.printStackTrace();
 			return;
 		}
-		for(int i = 0; i<cards.size(();i++){
+		for(int i = 0; i<cards.size();i++){
 			int temp = cards.get(i).getNumber();
 			for(int j = 0; j <temp; j++){
 				deck.add(cards.get(i);
 			}
 		}
-		deck.shuffle();
+		Collections.shuffle(deck);
 		addMouseListener(this);
 	}
 	public void paint(Graphics g) {
 		g.drawImage(cardback, 0, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
 		if(hasdrawn && count<deck.size()) {
-			g.drawImage(deck.get(count), 3*getWidth()/5, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
+			g.drawImage(deck.get(count).getImage(), 3*getWidth()/5, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
 		}
 	}
 	public void mousePressed(MouseEvent e) {}
