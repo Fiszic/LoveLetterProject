@@ -49,7 +49,7 @@ public class Deck extends JPanel implements MouseListener{
 		for(int i = 0; i<cards.size();i++){
 			int temp = cards.get(i).getNumber();
 			for(int j = 0; j <temp; j++){
-				deck.add(cards.get(i);
+				deck.add(cards.get(i));
 			}
 		}
 		Collections.shuffle(deck);
