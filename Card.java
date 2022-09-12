@@ -6,20 +6,15 @@ import java.io.*;
 import java.util.*;
 
 public class Card  extends Deck{
-	private BufferedImage CardImage;
 	private String CardName;
 	private int number, CardNumber;
-	public Card(String cn, int cnum, BufferedImage CI, int num) {
+	public Card(String cn, int cnum,  int num) {
 		CardName = cn;
 		CardNumber = cnum;
-		CardImage = CI;
 		number =num;
 	}
 	public int getNumber() {
 		return number;
-	}
-	public BufferedImage getImage() {
-		return CardImage;
 	}
 	public int getCardNumber(){
 		return CardNumber;
