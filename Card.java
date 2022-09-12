@@ -11,7 +11,7 @@ public class Card  extends Deck{
 	private int number, CardNumber;
 	public Card(String cn, int cnum, BufferedImage CI, int num) {
 		CardName = cn;
-		CardNumber = n;
+		CardNumber = cnum;
 		CardImage = CI;
 		number =num;
 	}
