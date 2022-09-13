@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.*;
 
-public class Card  extends Deck{
+public class Card{
 	private String CardName;
 	private int number, CardNumber;
 	public Card(String cn, int cnum,  int num) {
