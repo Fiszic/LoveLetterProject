@@ -79,11 +79,9 @@ public class Deck extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 	public void paint(Graphics g) {
-		g.drawImage(cardback, 0, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
+		g.drawImage(cardback, 8*getWidth()/20, 2*getHeight()/20, 3*getWidth()/20, 5*getHeight()/20, null);
 		if(hasdrawn && count<deck.size()) {
-			g.drawImage(getImage(deck.get(count).getCardNumber()), 3*getWidth()/5, getHeight()/5, 2*getWidth()/5, 3*getHeight()/5, null);
-			tempcount++;
-			System.out.println(tempcount);
+			g.drawImage(getImage(deck.get(count).getCardNumber()), 0, 0, 3*getWidth()/20, 5*getHeight()/20, null);
 		}
 	}
 	public BufferedImage getImage(int i) {
@@ -98,7 +96,7 @@ public class Deck extends JPanel implements MouseListener{
 		int y = e.getY();
 		System.out.println("loc is (" + x + "," + y + ")");
 		if(e.getButton() == e.BUTTON1) {
-			if(x >0 &&  y >getHeight()/5 && x < 2*getWidth()/5 && y< 3*getHeight()/5) {
+			if(x > 8*getWidth()/20&&  y >2*getHeight()/20&& x < 8*getWidth()/20+3*getWidth()/20 && y< 2*getHeight()/20+5*getHeight()/20) {
 				count++;
 				hasdrawn = true;
 			}
