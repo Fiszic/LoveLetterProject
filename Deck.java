@@ -18,9 +18,13 @@ public class Deck extends JPanel implements MouseListener{
 	private boolean hasdrawn;
 	private int count;
 	public Deck() {
+		
+		
+		listofimage = new ArrayList<BufferedImage>();
+		cards = new ArrayList<Card>();
+		deck = new ArrayList<Card>();
 		hasdrawn = false;
 		count = -1;
-		tempcount = 0;
 		try {
 			cardback = ImageIO.read(Deck.class.getResource("CardBack.png"));
 			spypng =ImageIO.read(Deck.class.getResource("Spy-0.png")) ;
@@ -58,7 +62,7 @@ public class Deck extends JPanel implements MouseListener{
 		baron = new Card("Baron", 3 , 2);
 		cards.add(baron);
 		handmaid = new Card("Handmaid", 4, 2);
-		cards.add(handmaid);
+		cards.add(handmaid);		
 		prince = new Card("Prince", 5, 2);
 		cards.add(prince);
 		chancellor = new Card("Chancellor", 6, 2);
@@ -75,15 +79,30 @@ public class Deck extends JPanel implements MouseListener{
 				deck.add(cards.get(i));
 			}
 		}
+		for(int i = 0; i<3; i++) {
+			p =new Player("Player" + i);
+			players.add(p);
+		}
 		Collections.shuffle(deck);
 		addMouseListener(this);
 	}
+	public void startGame() {
+		gamestarted = true;
+		
+		deck.remove(0);
+		
+	}
 	public void paint(Graphics g) {
-		g.drawImage(cardback, 8*getWidth()/20, 2*getHeight()/20, 3*getWidth()/20, 5*getHeight()/20, null);
+		if(deck.size()>-0) {
+			g.drawImage(cardback, 8*getWidth()/20, 2*getHeight()/20, 3*getWidth()/20, 5*getHeight()/20, null);
+		}
+		g.setColor(Color.RED);
+		g.fillRect(13*getWidth()/20-10, 0, 3*getWidth()/20+20, 5*getHeight()/20+10);
+		g.drawImage(cardback, 13*getWidth()/20, 0, 3*getWidth()/20, 5*getHeight()/20, null);
 		if(hasdrawn && count<deck.size()) {
 			g.drawImage(getImage(deck.get(count).getCardNumber()), 0, 0, 3*getWidth()/20, 5*getHeight()/20, null);
 		}
-	}
+		
 	public BufferedImage getImage(int i) {
 		return listofimage.get(i);
 	}
