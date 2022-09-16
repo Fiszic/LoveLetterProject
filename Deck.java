@@ -11,7 +11,7 @@ public class Deck extends JPanel implements MouseListener{
 	private ArrayList<BufferedImage> listofimage;
 	private ArrayList<Card> cards;
 	private ArrayList<Card> deck;
-	private BufferedImage cardback, referenceCard, brokenSealCard; 
+	private BufferedImage cardback, referenceCard, brokenSealCard, token; 
 	private BufferedImage spypng, gaurdpng, priestpng, baronpng, handmaidpng, princepng, chancellorpng, kingpng, countesspng,princesspng;
 	private Card spy, gaurd, priest, baron, handmaid, prince, chancellor, king, countess, princess;
 	private boolean hasdrawn, gamestarted;
@@ -29,6 +29,7 @@ public class Deck extends JPanel implements MouseListener{
 		hasdrawn = false;
 		count = -1;
 		try {
+			token = ImageIO.read(Deck.class.getResource("/Images/LoveLetterToken.png"))
 			brokenSealCard = ImageIO.read(Deck.class.getResource("/Images/BrokenSealCard .png"));
 			referenceCard= ImageIO.read(Deck.class.getResource("/Images/ReferenceCard.png"));
 			cardback = ImageIO.read(Deck.class.getResource("/Images/CardBack.png"));
