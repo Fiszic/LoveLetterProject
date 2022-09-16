@@ -113,8 +113,9 @@ public class Deck extends JPanel implements MouseListener{
 		else {
 			g.drawImage(brokenSealCard, 0, 0, 3*getWidth()/20, 6*getHeight()/20, null);
 		}
+		g.drawImage(token, 3*getWidth()/20, getHeight()/20, getWidth()/20, getHeight()20, null);
 		g.setColor(Color.RED);
-		g.drawString(players.get(1).getName(), 3*getWidth()/20, getWidth()/80);
+		g.drawString(players.get(1).getName(), 3*getWidth()/20, getHeight()/20);
 		if(players.get(2).isInGame()) {
 			g.drawImage(referenceCard, 17*getWidth()/20, 0,  3*getWidth()/20, 6*getHeight()/20, null);
 			g.drawImage(cardback, 17*getWidth()/20, 6*getHeight()/20, 3*getWidth()/20, 6*getHeight()/20,null);
