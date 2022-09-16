@@ -8,44 +8,49 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class Deck extends JPanel implements MouseListener{
-	private ArrayList<BufferedImage> listofimage= new ArrayList<>();
-	private ArrayList<Card> cards = new ArrayList<>();
-	private ArrayList<Card> deck = new ArrayList<>();
-	private BufferedImage cardback; 
+	private ArrayList<BufferedImage> listofimage;
+	private ArrayList<Card> cards;
+	private ArrayList<Card> deck;
+	private BufferedImage cardback, referenceCard, brokenSealCard; 
 	private BufferedImage spypng, gaurdpng, priestpng, baronpng, handmaidpng, princepng, chancellorpng, kingpng, countesspng,princesspng;
 	private Card spy, gaurd, priest, baron, handmaid, prince, chancellor, king, countess, princess;
-	private int tempcount;
-	private boolean hasdrawn;
+	private boolean hasdrawn, gamestarted;
 	private int count;
+	private ArrayList<Player> players;
+	private Player p;
+	
 	public Deck() {
 		
 		
+		players = new ArrayList<>();
 		listofimage = new ArrayList<BufferedImage>();
 		cards = new ArrayList<Card>();
 		deck = new ArrayList<Card>();
 		hasdrawn = false;
 		count = -1;
 		try {
-			cardback = ImageIO.read(Deck.class.getResource("CardBack.png"));
-			spypng =ImageIO.read(Deck.class.getResource("Spy-0.png")) ;
+			brokenSealCard = ImageIO.read(Deck.class.getResource("/Images/BrokenSealCard .png"));
+			referenceCard= ImageIO.read(Deck.class.getResource("/Images/ReferenceCard.png"));
+			cardback = ImageIO.read(Deck.class.getResource("/Images/CardBack.png"));
+			spypng =ImageIO.read(Deck.class.getResource("/Images/Spy-0.png")) ;
 			listofimage.add(spypng);
-			gaurdpng = ImageIO.read(Deck.class.getResource("Gaurd-1.png"));
+			gaurdpng = ImageIO.read(Deck.class.getResource("/Images/Gaurd-1.png"));
 			listofimage.add(gaurdpng);
-			priestpng = ImageIO.read(Deck.class.getResource("Priest-2.png"));
+			priestpng = ImageIO.read(Deck.class.getResource("/Images/Priest-2.png"));
 			listofimage.add(priestpng);
-			baronpng = ImageIO.read(Deck.class.getResource("Baron-3.png"));
+			baronpng = ImageIO.read(Deck.class.getResource("/Images/Baron-3.png"));
 			listofimage.add(baronpng);
-			handmaidpng = ImageIO.read(Deck.class.getResource("Handmaid-4.png"));
+			handmaidpng = ImageIO.read(Deck.class.getResource("/Images/Handmaid-4.png"));
 			listofimage.add(handmaidpng);
-			princepng = ImageIO.read(Deck.class.getResource("Prince-5.png"));
+			princepng = ImageIO.read(Deck.class.getResource("/Images/Prince-5.png"));
 			listofimage.add(princepng);
-			chancellorpng = ImageIO.read(Deck.class.getResource("Chancellor-6.png"));
+			chancellorpng = ImageIO.read(Deck.class.getResource("/Images/Chancellor-6.png"));
 			listofimage.add(chancellorpng);
-			kingpng = ImageIO.read(Deck.class.getResource("King-7.png"));
+			kingpng = ImageIO.read(Deck.class.getResource("/Images/King-7.png"));
 			listofimage.add(kingpng);
-			countesspng = ImageIO.read(Deck.class.getResource("Chancellor-6.png"));
+			countesspng = ImageIO.read(Deck.class.getResource("/Images/Chancellor-6.png"));
 			listofimage.add(countesspng);
-			princesspng = ImageIO.read(Deck.class.getResource("Princess-9.png"));
+			princesspng = ImageIO.read(Deck.class.getResource("/Images/Princess-9.png"));
 			listofimage.add(princesspng);
 		}
 		catch(Exception E) {
@@ -88,21 +93,39 @@ public class Deck extends JPanel implements MouseListener{
 	}
 	public void startGame() {
 		gamestarted = true;
-		
 		deck.remove(0);
-		
+		for(int i = 0; i<players.size(); i++) {
+			players.get(i).drawCard(deck.remove(0));
+		}
 	}
 	public void paint(Graphics g) {
 		if(deck.size()>-0) {
-			g.drawImage(cardback, 8*getWidth()/20, 2*getHeight()/20, 3*getWidth()/20, 5*getHeight()/20, null);
+			g.drawImage(cardback, 8*getWidth()/20, 2*getHeight()/20, 3*getWidth()/20, 6*getHeight()/20, null);
 		}
 		g.setColor(Color.RED);
-		g.fillRect(13*getWidth()/20-10, 0, 3*getWidth()/20+20, 5*getHeight()/20+10);
-		g.drawImage(cardback, 13*getWidth()/20, 0, 3*getWidth()/20, 5*getHeight()/20, null);
-		if(hasdrawn && count<deck.size()) {
-			g.drawImage(getImage(deck.get(count).getCardNumber()), 0, 0, 3*getWidth()/20, 5*getHeight()/20, null);
+		g.fillRect(13*getWidth()/20-10, 0, 3*getWidth()/20+20, 6*getHeight()/20+10);
+		g.drawImage(cardback, 13*getWidth()/20, 0, 3*getWidth()/20, 6*getHeight()/20, null);
+		if(players.get(1).isInGame()) {
+			g.drawImage(referenceCard, 0, 0, 3*getWidth()/20, 6*getHeight()/20, null);
+			g.drawImage(cardback, 0, 6*getHeight()/20, 3*getWidth()/20, 6*getHeight()/20,null);
 		}
-		
+		else {
+			g.drawImage(brokenSealCard, 0, 0, 3*getWidth()/20, 6*getHeight()/20, null);
+		}
+		g.setColor(Color.RED);
+		g.drawString(players.get(1).getName(), 3*getWidth()/20, getWidth()/80);
+		if(players.get(2).isInGame()) {
+			g.drawImage(referenceCard, 17*getWidth()/20, 0,  3*getWidth()/20, 6*getHeight()/20, null);
+			g.drawImage(cardback, 17*getWidth()/20, 6*getHeight()/20, 3*getWidth()/20, 6*getHeight()/20,null);
+		}
+		else {
+			g.drawImage(brokenSealCard, 17*getWidth()/20, 0,  3*getWidth()/20, 6*getHeight()/20, null);
+		}
+		g.drawString(players.get(2).getName(), 33*getWidth()/40, getHeight()/20);
+		if(hasdrawn && count<deck.size()) {
+			g.drawImage(getImage(deck.get(count).getCardNumber()), 0, 0, 3*getWidth()/20, 6*getHeight()/20, null);
+		}
+	}
 	public BufferedImage getImage(int i) {
 		return listofimage.get(i);
 	}
