@@ -49,6 +49,8 @@ public class Player {
 	}
 	public void lose() {
 		inGame = false;
+		discard.add(hand.get(0));
+		immunityTrue();
 	}
 	public int getHandAmmount() {
 		return hand.size();
@@ -88,6 +90,7 @@ public class Player {
 		hand.clear();
 		discard.clear();
 		inGame = true;
+		immunityFalse();
 	}
 	public void removeCard(int i) {
 		hand.remove(i);
