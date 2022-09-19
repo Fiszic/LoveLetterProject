@@ -50,7 +50,7 @@ public class Deck extends JPanel implements MouseListener{
 			listofimage.add(chancellorpng);
 			kingpng = ImageIO.read(Deck.class.getResource("/Images/King-7.png"));
 			listofimage.add(kingpng);
-			countesspng = ImageIO.read(Deck.class.getResource("/Images/Chancellor-6.png"));
+			countesspng = ImageIO.read(Deck.class.getResource("/Images/Countess-8.png"));
 			listofimage.add(countesspng);
 			princesspng = ImageIO.read(Deck.class.getResource("/Images/Princess-9.png"));
 			listofimage.add(princesspng);
@@ -121,6 +121,7 @@ public class Deck extends JPanel implements MouseListener{
 		if(hand0.equals(countess)&&(hand1.equals(king)||hand1.equals(prince))) {
 			players.get(0).discardCard(0);
 			logmessages.add(0, players.get(0).getName() + " forced to discard countess");
+			repaint();
 			nextTurn();
 		}
 		else if(hand1.equals(countess)&&(hand0.equals(king)||hand0.equals(prince))) {
@@ -273,6 +274,7 @@ public class Deck extends JPanel implements MouseListener{
 		}
 	}
 	public void paint(Graphics g) {
+		super.paint(g);
 		g.setColor(new Color(130, 0, 0));
 		g.fillRect(0,0,getWidth(), getHeight());
 		//deck
@@ -519,23 +521,33 @@ public class Deck extends JPanel implements MouseListener{
 			}
 			if(princePlayerSelect) {
 				if(x>3*getWidth()/20 && y>0&&x<4*getWidth()/20 && y<getHeight()/20&&!players.get(1).immune()) {
+					System.out.println("player0 " + players.get(0).getHandAmmount());
+					players.get(0).discardCard(0);
 					Card drawnCard = deck.remove(0);
 					logmessages.add(0, players.get(0).getName() + " drew " + drawnCard.getName());
 					players.get(0).drawCard(drawnCard);
+					System.out.println("player0 " + players.get(1).getHandAmmount());
 					repaint();
 					nextTurn();
 				}
 				else if(x>16*getWidth()/20&&y>0&&x<17*getWidth()/20&&y<getHeight()/20&&!players.get(2).immune()) {
+					System.out.println("player1 " + players.get(1).getHandAmmount());
+					players.get(1).discardCard(0);
 					Card drawnCard = deck.remove(0);
 					logmessages.add(0, players.get(1).getName() + " drew " + drawnCard.getName());
 					players.get(1).drawCard(drawnCard);
+					System.out.println("player1 " + players.get(1).getHandAmmount());
 					repaint();
 					nextTurn();
 				}
 				else if(x>7*getWidth()/20&&x<8*getWidth()/20&&y< getHeight()-6 * getHeight()/20&& y>getHeight()-7 * getHeight()/20) {
+					System.out.println("player2 " + players.get(1).getHandAmmount());
+					players.get(2).discardCard(0);
 					Card drawnCard = deck.remove(0);
 					logmessages.add(0, players.get(2).getName() + " drew " + drawnCard.getName());
 					players.get(2).drawCard(drawnCard);
+					System.out.println("player2 " + players.get(1).getHandAmmount());
+					repaint();
 					nextTurn();
 				}
 			}
